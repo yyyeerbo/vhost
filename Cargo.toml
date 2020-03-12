@@ -15,7 +15,7 @@ vhost-user-slave = []
 [dependencies]
 bitflags = "1.1.0"
 libc = "0.2.67"
-vmm-sys-util = ">=0.3.1"
+vmm-sys-util = { git = "https://github.com/rust-vmm/vmm-sys-util" }
 
 [dependencies.vm-memory]
 git = "https://github.com/rust-vmm/vm-memory"
