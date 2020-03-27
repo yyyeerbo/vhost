@@ -33,14 +33,12 @@ jobs:
         cargo build --release --features=vhost-kern --target x86_64-unknown-linux-musl
         cargo build --release --features=vhost-user-master --target x86_64-unknown-linux-musl
         cargo build --release --features=vhost-user-slave --target x86_64-unknown-linux-musl
-      continue-on-error: true
     - name: Style
       run: cargo fmt --all -- --check
     - name: Unit Tests [gnu-x86]
       run: cargo test --all-features --target x86_64-unknown-linux-gnu
     - name: Unit Tests [musl-x86]
       run: cargo test --all-features --target x86_64-unknown-linux-musl
-      continue-on-error: true
     - name: Clippy [x86]
       run: cargo clippy --all -- -D warnings
     - name: Check Warnings [x86]
