@@ -90,7 +90,7 @@ impl Master {
     /// # Arguments
     /// * `path` - path of Unix domain socket listener to connect to
     pub fn connect(path: &str, max_queue_num: u64) -> Result<Self> {
-        let mut retry_count = 5;
+        let mut retry_count = 50;
         let endpoint = loop {
             match Endpoint::<MasterReq>::connect(path) {
                 Ok(endpoint) => break Ok(endpoint),
