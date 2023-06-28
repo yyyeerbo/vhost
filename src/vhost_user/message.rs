@@ -202,7 +202,6 @@ bitflags! {
 /// Common message header for vhost-user requests and replies.
 /// A vhost-user message consists of 3 header fields and an optional payload. All numbers are in the
 /// machine native byte order.
-#[allow(safe_packed_borrows)]
 #[repr(packed)]
 #[derive(Debug, Clone, Copy, PartialEq)]
 pub(super) struct VhostUserMsgHeader<R: Req> {
@@ -228,7 +227,9 @@ impl<R: Req> VhostUserMsgHeader<R> {
     /// Get message type.
     pub fn get_code(&self) -> R {
         // It's safe because R is marked as repr(u32).
-        unsafe { std::mem::transmute_copy::<u32, R>(&self.request) }
+        // unsafe { std::mem::transmute_copy::<u32, R>(&self.request) }
+        let ptr = std::ptr::addr_of!(self.request);
+        unsafe { std::ptr::read_unaligned::<R>(ptr as *const R) }
     }
 
     /// Set message type.
